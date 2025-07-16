@@ -37,20 +37,44 @@ public class Main {
         System.out.println("Current trump suit is " + trumpSuit);
         String currentSuit = null;
         for (int i = 0; i < game.getRoundNumber(); i++) {
-            player1.showPlayerhand();
+            player1.showPlayerHand();
             //take the suit of the first played card as the "current suit"
             Card firstcard = player1.playerPlaceCard(0);
             currentSuit = firstcard.getSuit();
             playedCards.add(firstcard);
 
-            player2.showPlayerhand();
+            player2.showPlayerHand();
             playedCards.add(player2.playerPlaceCard(0));
 
-            player3.showPlayerhand();
+            player3.showPlayerHand();
             playedCards.add(player3.playerPlaceCard(0));
 
-            playerUser.showPlayerhand();
+            playerUser.showPlayerHand();
             playedCards.add(playerUser.playerPlaceCard(0));
+
+            /*
+            //testing to see if it recognises ace as bigger
+            Card p1card = new Card(13, "Spades");
+            player1.addCardToHand(p1card);
+            playedCards.add(player1.playerPlaceCard(0));
+            player1.showPlayerHand();
+            currentSuit = p1card.getSuit();
+
+            Card p2card = new Card(1, "Diamonds");
+            player2.addCardToHand(p2card);
+            playedCards.add(player2.playerPlaceCard(0));
+            player2.showPlayerHand();
+
+            Card p3card = new Card(1, "Spades");
+            player3.addCardToHand(p3card);
+            playedCards.add(player3.playerPlaceCard(0));
+            player3.showPlayerHand();
+
+            Card p4card = new Card(12, "Hearts");
+            playerUser.addCardToHand(p4card);
+            playedCards.add(playerUser.playerPlaceCard(0));
+            playerUser.showPlayerHand();
+            */
         }
 
         Player roundWinner = game.roundWinner(playedCards, currentSuit, trumpSuit);

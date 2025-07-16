@@ -43,15 +43,24 @@ public class Game {
         int trumpMaxValue = -1;
         Player regularWinner = null;
         Player trumpWinner = null;
+        //i need to tell it that ace (value 1) is actually bigger than king (value 13)
         for (int i=0; i<players.size(); i++){
             Card card = playedCards.get(i);
             if (card.getNumber() > maxValue && Objects.equals(card.getSuit(), currentSuit)) {
                 maxValue = card.getNumber();
                 regularWinner = players.get(i);
             }
+            if (card.getNumber() == 1 && Objects.equals(card.getSuit(), currentSuit)) {
+                maxValue = 14;
+                regularWinner = players.get(i);
+            }
 
             if (Objects.equals(card.getSuit(), trumpSuit) && card.getNumber() > trumpMaxValue) {
                 trumpMaxValue = card.getNumber();
+                trumpWinner = players.get(i);
+            }
+            if (Objects.equals(card.getSuit(), trumpSuit) && card.getNumber() == 1) {
+                trumpMaxValue = 14;
                 trumpWinner = players.get(i);
             }
 

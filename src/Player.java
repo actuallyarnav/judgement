@@ -17,7 +17,7 @@ public class Player {
         hand.add(card);
     }
 
-    public void showPlayerhand() {
+    public void showPlayerHand() {
         System.out.println(playerName + "'s hand:");
         for (Card cards : hand) {
             System.out.println(cards);
