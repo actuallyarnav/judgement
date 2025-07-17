@@ -1,17 +1,31 @@
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 public class Game {
     private Deck deck;
-    private ArrayList<Player> players;
+    private ArrayList<Player> players = new ArrayList<>();
     private int currentRound;
 
-    public Game(ArrayList<Player> players) {
-        this.players = players;
+    public Game() {
         this.deck = new Deck();
         this.deck.createDeck();
         this.deck.shuffleDeck();
         this.currentRound = 1;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public ArrayList<Player> initPlayers() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+        players.add(new Player("brug1"));
+        players.add(new Player("brug2"));
+        players.add(new Player("brug3"));
+        players.add(new Player(name));
+
+        return players;  // Optional if caller wants to keep a reference
     }
 
     public int getRoundNumber() {
@@ -28,10 +42,6 @@ public class Game {
                 player.addCardToHand(deck.drawCard());
             }
         }
-    }
-
-    public void playRound() {
-
     }
 
     //returns the player that won the round

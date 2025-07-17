@@ -33,7 +33,7 @@ public class Player {
         return hand.get(playerCard);
     }
 
-    public ArrayList<Card> gethand() {
+    public ArrayList<Card> getHand() {
         return hand;
     }
 
