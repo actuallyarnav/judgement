@@ -24,3 +24,9 @@ This is a console-based Java implementation of **Judgement**, a classic multipla
 
 - The judgement mechanic (yeah i know, im working on it okay). I would need to implement some kind of algorithm for it, clearly.
 - Round by round points system
+
+## How to run
+
+`git clone https://github.com/actuallyarnav/judgement.git`
+`cd judgement`
+`make run`

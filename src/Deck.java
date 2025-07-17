@@ -25,7 +25,7 @@ public class Deck {
 
     public Card drawCard() {
         this.shuffleDeck();
-        return cards.removeFirst();
+        return cards.remove(0);
     }
 
     public void displayDeck() {
