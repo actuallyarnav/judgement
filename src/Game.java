@@ -14,8 +14,6 @@ public class Game {
         this.currentRound = 1;
     }
 
-
-
     public int getRoundNumber() {
         return currentRound;
     }
@@ -23,7 +21,6 @@ public class Game {
     public void advanceRound() {
         currentRound++;
     }
-
 
     public void distributeCards() {
         for (int i = 0; i < currentRound; i++) {
@@ -38,7 +35,7 @@ public class Game {
     }
 
     //returns the player that won the round
-    public Player roundWinner (ArrayList<Card> playedCards, String currentSuit, String trumpSuit) {
+    public Player turnWinner(ArrayList<Card> playedCards, String currentSuit, String trumpSuit) {
         int maxValue = -1;
         int trumpMaxValue = -1;
         Player regularWinner = null;
