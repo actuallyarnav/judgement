@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Scanner;
 
 public class Game {
     private Deck deck;
@@ -25,7 +28,7 @@ public class Game {
         players.add(new Player("brug3"));
         players.add(new Player(name));
 
-        return players;  // Optional if caller wants to keep a reference
+        return players;
     }
 
     public int getRoundNumber() {
@@ -42,6 +45,20 @@ public class Game {
                 player.addCardToHand(deck.drawCard());
             }
         }
+    }
+
+    //checks if hand has cards matching the lead suit
+    //if yes, it returns the first instance of such a card
+    //if not, it returns -1
+    public int checkSuitMatchFirst(List<Card> pHand, Card firstcard) {
+        int indexToPlay = -1;
+        for (int h = 0; h < pHand.size(); h++) {
+            if (Objects.equals(pHand.get(h).getSuit(), firstcard.getSuit())) {
+                indexToPlay = h;
+                break;
+            }
+        }
+        return indexToPlay;
     }
 
     //returns the player that won the round

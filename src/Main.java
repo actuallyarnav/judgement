@@ -7,34 +7,6 @@ public class Main {
     private static final int TOTAL_SUIT_LOOP = 5;
 
     public static void main (String[] args) {
-        /*
-        * public static void main(String[] args) {
-    Game game = new Game();
-    List<Player> players = initializePlayers();
-
-    game.setPlayers(players);
-    game.shuffleAndDealCards();
-
-    int trumpSuitPosition = 0;
-
-    for (int i = 0; i < game.getTotalRounds(); i++) {
-        System.out.println("Round " + (i + 1));
-        Suit trump = determineTrump(trumpSuitPosition);
-        game.setTrumpSuit(trump);
-
-        playRound(game, players, i);
-
-        game.calculateTurnScores(players, trump);
-        Player winner = game.determineRoundWinner(players);
-        System.out.println("Round Winner: " + winner.getName());
-
-        trumpSuitPosition = (trumpSuitPosition + 1) % 6;
-        game.advanceRound();
-    }
-
-    game.printFinalResults(players);
-}
- */
 
         //counter variable that changes the trump suit, according to the array
         int trumpSuitPosition = 0;
@@ -49,13 +21,13 @@ public class Main {
         Player player3 = players.get(2);
         Player playerUser = players.get(3);
 
-        ArrayList<Card> playedCards = new ArrayList<>();
+        ArrayList<Card> playedCards = null;
 
         //initialising some variables
         String currentSuit = null;
         int userPlaceCard;
-        int indexToPlay;
         int turnNumber = 1;
+        int indexToPlay;
 
         //let the user choose the number of rounds
         Scanner totalRnd = new Scanner(System.in);
@@ -85,57 +57,40 @@ public class Main {
 
                 //player 2 turn
                 List<Card> p2hand = player2.getHand();
-                Card p2Card = null;
-                indexToPlay = -1;
-                for (int h = 0; h < p2hand.size(); h++) {
-                    if (Objects.equals(p2hand.get(h).getSuit(), firstcard.getSuit())) {
-                        indexToPlay = h;
-                        break;
-                    }
+                indexToPlay = game.checkSuitMatchFirst(p2hand, firstcard);
+                if (indexToPlay == -1){
+                    indexToPlay = 0;
                 }
-                if (indexToPlay != -1) {
-                    player2.showPlayerCard(indexToPlay);
-                    p2Card = player2.playerPlaceCard(indexToPlay);
 
-                } else {
-                    player2.showPlayerCard(0);
-                    p2Card = player2.playerPlaceCard(0);
+                player2.showPlayerCard(indexToPlay);
+                Card p2Card = player2.playerPlaceCard(indexToPlay);
 
-                }
                 playedCards.add(p2Card);
                 System.out.println("\n" + player2.getPlayerName() + " played: " + p2Card);
 
                 //player 3 turn
                 List<Card> p3hand = player3.getHand();
-                Card p3Card = null;
-                indexToPlay = -1;
-                for (int h = 0; h < p3hand.size(); h++) {
-                    if (Objects.equals(p3hand.get(h).getSuit(), firstcard.getSuit())) {
-                        indexToPlay = h;
-                        break;
-                    }
+                indexToPlay = game.checkSuitMatchFirst(p2hand, firstcard);
+                if (indexToPlay == -1){
+                    indexToPlay = 0;
                 }
-                if (indexToPlay != -1) {
-                    player3.showPlayerCard(indexToPlay);
-                    p3Card = player3.playerPlaceCard(indexToPlay);
 
-                } else {
-                    player3.showPlayerCard(0);
-                    p3Card = player3.playerPlaceCard(0);
+                player3.showPlayerCard(indexToPlay);
+                Card p3Card = player2.playerPlaceCard(indexToPlay);
 
-                }
                 playedCards.add(p3Card);
                 System.out.println("\n" + player3.getPlayerName() + " played: " + p3Card);
 
                 //user turn
+                List<Card> pUserhand = playerUser.getHand();
                 int userCardPlayed = -1;
                 Card pUserCard = null;
+                int playableSuit = game.checkSuitMatchFirst(pUserhand, firstcard);
                 Scanner userCard = new Scanner(System.in);
                 System.out.println("\nYour hand:");
                 playerUser.showPlayerHand();
                 while (pUserCard == null) {
                     System.out.println("\nWhich card would you like to play? (Enter an integer)");
-
                     try {
                         userCardPlayed = Integer.parseInt(userCard.next());
                         pUserCard = playerUser.playerPlaceCard(userCardPlayed - 1);

@@ -28,5 +28,7 @@ This is a console-based Java implementation of **Judgement**, a classic multipla
 ## How to run
 
 `git clone https://github.com/actuallyarnav/judgement.git`
+
 `cd judgement`
+
 `make run`
