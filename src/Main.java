@@ -4,13 +4,12 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-    private static final int TOTAL_SUIT_LOOP = 5;
+
 
     public static void main (String[] args) {
 
         //counter variable that changes the trump suit, according to the array
-        int trumpSuitPosition = 0;
-        String[] Suits = {"Spades", "Clubs", "Hearts", "Diamonds", "None"};
+
         //creates a game object (new shuffled deck, initialises variables)
         Game game = new Game();
 
@@ -21,10 +20,10 @@ public class Main {
         Player player3 = players.get(2);
         Player playerUser = players.get(3);
 
-        ArrayList<Card> playedCards = null;
+        ArrayList<Card> playedCards = new ArrayList<>();
 
         //initialising some variables
-        String currentSuit = null;
+        String leadSuit = null;
         int userPlaceCard;
         int turnNumber = 1;
         int indexToPlay;
@@ -36,14 +35,13 @@ public class Main {
 
         //round loop
         for (int rcount = 0; rcount < totalRounds; rcount ++) {
-            String trumpSuit = Suits[trumpSuitPosition];
+
             System.out.println("\n\nRound " + (rcount+1) + ":");
-            System.out.println("Current trump suit is " + trumpSuit + "\n");
+            System.out.println("Current trump suit is " + game.getTrumpSuit() + "\n");
             game.distributeCards();
 
             //turn loop
             for (int i = 0; i < game.getRoundNumber(); i++) {
-                playedCards.clear();
 
                 System.out.println("Turn " + (i+1) + ":");
 
@@ -51,7 +49,7 @@ public class Main {
                 player1.showPlayerCard(0);
                 //take the suit of the first played card as the "current suit"
                 Card firstcard = player1.playerPlaceCard(0);
-                currentSuit = firstcard.getSuit();
+                leadSuit = firstcard.getSuit();
                 playedCards.add(firstcard);
                 System.out.println("\n" + player1.getPlayerName() + " played: " + firstcard);
 
@@ -70,13 +68,13 @@ public class Main {
 
                 //player 3 turn
                 List<Card> p3hand = player3.getHand();
-                indexToPlay = game.checkSuitMatchFirst(p2hand, firstcard);
+                indexToPlay = game.checkSuitMatchFirst(p3hand, firstcard);
                 if (indexToPlay == -1){
                     indexToPlay = 0;
                 }
 
                 player3.showPlayerCard(indexToPlay);
-                Card p3Card = player2.playerPlaceCard(indexToPlay);
+                Card p3Card = player3.playerPlaceCard(indexToPlay);
 
                 playedCards.add(p3Card);
                 System.out.println("\n" + player3.getPlayerName() + " played: " + p3Card);
@@ -104,7 +102,7 @@ public class Main {
                 System.out.println("\n" + playerUser.getPlayerName() + " played: " + pUserCard);
 
 
-                Player turnWinner = game.turnWinner(playedCards, currentSuit, trumpSuit);
+                Player turnWinner = game.turnWinner(playedCards, leadSuit, game.getTrumpSuit());
                 System.out.println("Winner of Turn " + turnNumber + " is: " + turnWinner.getPlayerName());
                 turnWinner.incrementTurnScore();
                 System.out.println("Turn " + turnNumber + " results:\n");
@@ -117,7 +115,8 @@ public class Main {
             }
             //code to determine the round winner (simple score counts. no judgement yet, will add later)
             game.advanceRound();
-            trumpSuitPosition = (trumpSuitPosition + 1) % TOTAL_SUIT_LOOP;
+            playedCards.clear();
+
         }
     }
 }

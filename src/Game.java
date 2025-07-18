@@ -4,15 +4,19 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Game {
+    private int TOTAL_SUIT_LOOP = 5;
     private Deck deck;
     private ArrayList<Player> players = new ArrayList<>();
     private int currentRound;
+    int trumpSuitPosition = 0;
+    String[] Suits = {"Spades", "Clubs", "Hearts", "Diamonds", "None"};
 
     public Game() {
         this.deck = new Deck();
         this.deck.createDeck();
         this.deck.shuffleDeck();
         this.currentRound = 1;
+        trumpSuitPosition =0;
     }
 
     public ArrayList<Player> getPlayers() {
@@ -37,6 +41,7 @@ public class Game {
 
     public void advanceRound() {
         currentRound++;
+        trumpSuitPosition = (trumpSuitPosition + 1) % TOTAL_SUIT_LOOP;
     }
 
     public void distributeCards() {
@@ -45,6 +50,10 @@ public class Game {
                 player.addCardToHand(deck.drawCard());
             }
         }
+    }
+
+    public String getTrumpSuit() {
+        return Suits[trumpSuitPosition];
     }
 
     //checks if hand has cards matching the lead suit
